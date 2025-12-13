@@ -65,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const cancelBtn = document.getElementById('cancel-btn');
             
             // 假设您的番茄时钟页面文件名为 pomodoro-timer.html
-            const targetUrl = 'pomodoro-timer.html'; 
+            const targetUrl = '/pomodoro/pomodoro-timer.html'; 
 
             // 确认按钮：跳转到番茄时钟页面
             confirmBtn.addEventListener('click', () => {
