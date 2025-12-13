@@ -1,3 +1,4 @@
+// 添加简体时间
 document.addEventListener('DOMContentLoaded', () => {
     
     // 1. 自动更新 Footer 年份
@@ -56,4 +57,34 @@ document.addEventListener('DOMContentLoaded', () => {
             postListContainer.appendChild(article);
         });
     }
+
+
+    // 弹窗--跳转到 番茄时钟
+    const modal = document.getElementById('welcome-modal');
+            const confirmBtn = document.getElementById('confirm-btn');
+            const cancelBtn = document.getElementById('cancel-btn');
+            
+            // 假设您的番茄时钟页面文件名为 pomodoro-timer.html
+            const targetUrl = 'pomodoro-timer.html'; 
+
+            // 确认按钮：跳转到番茄时钟页面
+            confirmBtn.addEventListener('click', () => {
+                window.location.href = targetUrl;
+            });
+
+            // 取消按钮：关闭弹窗
+            cancelBtn.addEventListener('click', () => {
+                modal.style.display = 'none';
+                // 如果需要，可以在这里让页面主体内容可见
+            });
+
+            // 可选：点击背景也关闭弹窗
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // 默认情况下，在页面加载完成时显示弹窗 (CSS 默认设置为可见)
 });
+

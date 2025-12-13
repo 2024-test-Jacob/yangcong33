@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>专注番茄时钟 PWA</title>
+    <link rel="stylesheet" href="/static/css/pomodoro-timer.css">
+    <link rel="manifest" href="/manifest.json">
+    </head>
+<body data-theme="light">
+    <div id="app">
+        <header>
+            <h1>专注番茄时钟</h1>
+            <div id="header-controls">
+                <button id="theme-toggle" title="切换主题">🎨</button>
+                <button id="settings-toggle" title="设置">⚙️</button>
+                <button id="focus-mode-toggle" title="专注模式">🔒</button>
+            </div>
+        </header>
+        
+        <main>
+            <div id="timer-wrapper">
+                <!-- <div id="session-tabs">
+                    <button data-session="work" class="active">工作</button>
+                    <button data-session="shortBreak">短休息</button>
+                    <button data-session="longBreak">长休息</button>
+                </div> -->
+                <div id="session-tabs">
+                    <button data-session="work" class="active">工作</button>
+                    <button data-session="shortBreak">短休息</button>
+                    <button data-session="longBreak">长休息</button>
+                </div>
+
+                <div id="timer-display">
+                    <svg class="progress-ring" width="300" height="300">
+                        <circle class="progress-ring-bg" stroke="#e6e6e6" stroke-width="12" fill="transparent" r="144" cx="150" cy="150"/>
+                        <circle id="progress-indicator" class="progress-ring-indicator" stroke="var(--accent-color)" stroke-width="12" fill="transparent" r="144" cx="150" cy="150" transform="rotate(-90 150 150)"/>
+                    </svg>
+                    <div id="time-left">25:00</div>
+                </div>
+
+                <div id="controls">
+                    <button id="start-pause-btn" class="control-btn">开始 (Space)</button>
+                    <button id="reset-btn" class="control-btn">重置 (R)</button>
+                    <button id="skip-btn" class="control-btn">跳过 (S)</button>
+                </div>
+            </div>
+
+            <div id="task-panel" class="card">
+                <h2>📚 任务清单</h2>
+                <div id="task-input-group">
+                    <input type="text" id="task-input" placeholder="添加任务并关联番茄时间...">
+                    <button id="add-task-btn">+</button>
+                </div>
+                <ul id="tasks"></ul>
+            </div>
+        </main>
+
+        <section id="settings-panel" class="hidden card">
+            <h2>⚙️ 定时器设置</h2>
+            <button id="save-settings-btn">保存</button>
+        </section>
+
+        <section id="stats-panel" class="card">
+            <h2>📈 效率统计</h2>
+            <p>已完成番茄周期: <span id="pomodoros-count">0</span></p>
+            <canvas id="daily-chart"></canvas>
+            <canvas id="weekly-chart"></canvas>
+        </section>
+    </div>
+    
+    <div id="focus-overlay" class="hidden">
+        <p>专注模式激活中... 远离分心!</p>
+    </div>
+
+    <script src="/static/js/pomodoro-timer.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(registration => {
+                    console.log('SW registered: ', registration);
+                }).catch(registrationError => {
+                    console.log('SW registration failed: ', registrationError);
+                });
+            });
+        }
+    </script>
+</body>
+</html>
