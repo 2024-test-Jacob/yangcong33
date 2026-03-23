@@ -34,6 +34,9 @@ blog-system/
 4. **统一依赖管理**
    - 在 `dependencyManagement` 中集中声明当前项目常用依赖坐标
    - 当前也显式写出了版本属性，便于学习和人工检查
+5. **统一构建插件管理**
+   - 统一 `maven-compiler-plugin`
+   - 统一 `spring-boot-maven-plugin`
 
 这样做的意义是：
 
