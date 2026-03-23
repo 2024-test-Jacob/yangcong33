@@ -1,37 +1,31 @@
 # blog-system
 
-Spring Boot 后端服务，当前已完成 MVP 第一阶段的登录模块骨架。
+这是博客系统的父工程（Aggregator / Parent POM）。
 
-## 推荐本地环境
+## 推荐目录结构
 
-- JDK：17
-- Maven 编译版本：17
-- GroupId：`com.yangcong`
-- ArtifactId / 项目目录名：`blog-system`
-
-## 已实现
-
-- `POST /api/auth/login`
-- `GET /api/auth/me`
-- 基于 MySQL `users` 表的登录校验
-- 使用 Spring Security `PasswordEncoder` 校验密码
-- 使用内存 Token 保存登录态（后续可替换为 JWT）
-
-## 启动前准备
-
-1. 先执行仓库根目录下的 `sql/init.sql`
-2. 按需执行 `sql/seed.sql`
-3. 优先通过环境变量覆盖数据库配置：
-   - `DB_URL`
-   - `DB_USERNAME`
-   - `DB_PASSWORD`
-4. 如果你在 IDEA 中直接启动，也可以在 Run Configuration 中配置上述环境变量
-
-> 当前 `sql/seed.sql` 默认写入的是 `{noop}admin123`，方便本地先跑通登录流程；
-> 后续接入正式环境时再切换为 `{bcrypt}` 哈希。
-
-## 启动命令
-
-```bash
-mvn spring-boot:run
+```text
+blog-system/
+├── pom.xml                # 父工程，只做统一版本管理与模块聚合
+└── blog-server/           # 当前后端子模块
+    ├── pom.xml
+    └── src/
 ```
+
+## 结构说明
+
+- 父工程 `blog-system` 负责：
+  - `dependencyManagement`
+  - 模块聚合
+  - 统一 Java / Spring Boot 版本
+- 当前业务代码放在子模块 `blog-server` 中
+
+## IDEA 提示
+
+如果你的父工程目录下还额外出现了一个顶层 `src/`，而你又不打算让父工程自己成为一个可运行模块，
+那么这个顶层 `src/` 一般可以删除或忽略。
+
+换句话说：
+
+- `blog-system/src/`：通常不需要
+- `blog-system/blog-server/src/`：这是当前真正应该保留的代码目录
