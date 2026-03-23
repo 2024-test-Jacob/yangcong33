@@ -18,7 +18,29 @@ blog-system/
   - `dependencyManagement`
   - 模块聚合
   - 统一 Java / Spring Boot 版本
+  - 统一 Maven 插件管理（例如编译插件、Spring Boot 插件）
 - 当前业务代码放在子模块 `blog-server` 中
+
+## 父工程 POM 当前负责的内容
+
+当前 `blog-system/pom.xml` 主要负责 4 件事：
+
+1. **声明模块**
+   - 当前包含 `blog-server`
+2. **统一属性**
+   - `java.version=17`
+   - `spring-boot.version=3.5.12`
+3. **统一依赖版本管理**
+   - 通过 `dependencyManagement` 导入 Spring Boot BOM
+4. **统一插件管理**
+   - 统一 `maven-compiler-plugin`
+   - 统一 `spring-boot-maven-plugin`
+
+这样做的意义是：
+
+- 子模块不需要到处重复写版本
+- 后续新增模块时更容易保持一致
+- 以后如果升级 Spring Boot，只需要优先调整父工程
 
 ## 当前建议版本
 
