@@ -20,6 +20,7 @@
 
     <modules>
         <module>blog-server</module>
+        <module>blog-admin</module>
     </modules>
 
     <properties>
@@ -30,6 +31,7 @@
         <spring-boot.version>3.5.12</spring-boot.version>
         <spring-security.version>6.5.7</spring-security.version>
         <mybatis-plus.version>3.5.14</mybatis-plus.version>
+        <mybatis-plus-jsqlparser.version>3.5.14</mybatis-plus-jsqlparser.version>
         <mysql-connector.version>8.0.33</mysql-connector.version>
         <lombok.version>1.18.38</lombok.version>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
@@ -51,6 +53,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-spring-boot3-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-jsqlparser</artifactId>
+                <version>${mybatis-plus-jsqlparser.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.springframework.security</groupId>
