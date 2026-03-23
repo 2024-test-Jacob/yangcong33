@@ -27,20 +27,34 @@ blog-system/
 
 1. **声明模块**
    - 当前包含 `blog-server`
-2. **统一属性**
+2. **继承 Spring Boot 官方父 POM**
+   - 即 `spring-boot-starter-parent:3.5.12`
+3. **统一属性**
    - `java.version=17`
-   - `spring-boot.version=3.5.12`
-3. **统一依赖版本管理**
-   - 通过 `dependencyManagement` 导入 Spring Boot BOM
-4. **统一插件管理**
-   - 统一 `maven-compiler-plugin`
-   - 统一 `spring-boot-maven-plugin`
+4. **统一依赖管理**
+   - 在 `dependencyManagement` 中集中声明当前项目常用依赖坐标
 
 这样做的意义是：
 
 - 子模块不需要到处重复写版本
 - 后续新增模块时更容易保持一致
 - 以后如果升级 Spring Boot，只需要优先调整父工程
+
+## 两层 parent 的理解方式
+
+你现在的项目实际上有两层“父”：
+
+1. **Spring Boot 官方父 POM**
+   - `spring-boot-starter-parent`
+2. **你自己的业务父工程**
+   - `blog-system`
+
+然后：
+
+- `blog-system` 继承 `spring-boot-starter-parent`
+- `blog-server` 再继承 `blog-system`
+
+这是一种很常见、也很适合当前项目的写法。
 
 ## 当前建议版本
 
