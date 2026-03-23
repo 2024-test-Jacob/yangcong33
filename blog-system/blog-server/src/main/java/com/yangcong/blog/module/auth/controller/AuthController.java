@@ -1,11 +1,11 @@
-package com.yangcong.blog.controller;
+package com.yangcong.blog.module.auth.controller;
 
 import com.yangcong.blog.common.ApiResponse;
-import com.yangcong.blog.dto.auth.CurrentUserResponse;
-import com.yangcong.blog.dto.auth.LoginRequest;
-import com.yangcong.blog.dto.auth.LoginResponse;
-import com.yangcong.blog.security.AuthContext;
-import com.yangcong.blog.service.AuthService;
+import com.yangcong.blog.module.auth.dto.CurrentUserResponse;
+import com.yangcong.blog.module.auth.dto.LoginRequest;
+import com.yangcong.blog.module.auth.dto.LoginResponse;
+import com.yangcong.blog.module.auth.security.AuthContext;
+import com.yangcong.blog.module.auth.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

@@ -1,6 +1,6 @@
-package com.yangcong.blog.repository;
+package com.yangcong.blog.module.auth.repository;
 
-import com.yangcong.blog.entity.User;
+import com.yangcong.blog.module.auth.model.User;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;

@@ -1,12 +1,12 @@
-package com.yangcong.blog.service;
+package com.yangcong.blog.module.auth.service;
 
 import com.yangcong.blog.common.BusinessException;
-import com.yangcong.blog.dto.auth.CurrentUserResponse;
-import com.yangcong.blog.dto.auth.LoginRequest;
-import com.yangcong.blog.dto.auth.LoginResponse;
-import com.yangcong.blog.entity.User;
-import com.yangcong.blog.repository.UserRepository;
-import com.yangcong.blog.security.TokenService;
+import com.yangcong.blog.module.auth.dto.CurrentUserResponse;
+import com.yangcong.blog.module.auth.dto.LoginRequest;
+import com.yangcong.blog.module.auth.dto.LoginResponse;
+import com.yangcong.blog.module.auth.model.User;
+import com.yangcong.blog.module.auth.repository.UserRepository;
+import com.yangcong.blog.module.auth.security.TokenService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;

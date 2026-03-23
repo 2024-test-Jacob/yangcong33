@@ -1,4 +1,4 @@
-package com.yangcong.blog.security;
+package com.yangcong.blog.module.auth.security;
 
 import java.util.Optional;
 import java.util.UUID;

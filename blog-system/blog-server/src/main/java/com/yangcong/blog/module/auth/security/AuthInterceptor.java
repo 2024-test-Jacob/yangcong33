@@ -1,4 +1,4 @@
-package com.yangcong.blog.security;
+package com.yangcong.blog.module.auth.security;
 
 import com.yangcong.blog.common.BusinessException;
 import jakarta.servlet.http.HttpServletRequest;

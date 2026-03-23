@@ -1,4 +1,4 @@
-package com.yangcong.blog.entity;
+package com.yangcong.blog.module.auth.model;
 
 import java.time.LocalDateTime;
 

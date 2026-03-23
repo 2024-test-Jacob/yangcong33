@@ -1,4 +1,4 @@
-package com.yangcong.blog.dto.auth;
+package com.yangcong.blog.module.auth.dto;
 
 import jakarta.validation.constraints.NotBlank;
 

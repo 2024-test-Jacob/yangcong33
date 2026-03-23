@@ -22,6 +22,40 @@ Spring Boot 后端服务，当前已完成 MVP 第一阶段的登录模块骨架
 - 使用 Spring Security `PasswordEncoder` 校验密码
 - 使用内存 Token 保存登录态（后续可替换为 JWT）
 
+## 当前目录结构说明
+
+现在把登录相关代码集中到了 `module/auth` 下面，按“功能模块”而不是“全局分散包”来组织：
+
+```text
+src/main/java/com/yangcong/blog/
+├── BlogServerApplication.java
+├── common/                    # 全局通用能力
+├── config/                    # 全局配置
+└── module/
+    └── auth/
+        ├── controller/        # 接口入口层
+        ├── dto/               # 请求/响应对象
+        ├── model/             # 当前模块的数据模型
+        ├── repository/        # 数据访问层
+        ├── security/          # 登录态、拦截器等安全相关能力
+        └── service/           # 业务逻辑层
+```
+
+### 你关心的几个概念
+
+- `controller`
+  - 负责接收 HTTP 请求，例如 `/api/auth/login`
+- `service`
+  - 负责写业务逻辑，例如校验用户名密码、生成 token
+- `repository`
+  - 负责和数据库打交道，例如查询 `users` 表
+- `dto`
+  - 负责接口入参和出参对象
+- `model`
+  - 负责表示当前模块用到的数据结构
+- `security`
+  - 负责登录态、鉴权拦截、当前用户上下文
+
 ## 启动前准备
 
 1. 先执行仓库根目录下的 `sql/init.sql`

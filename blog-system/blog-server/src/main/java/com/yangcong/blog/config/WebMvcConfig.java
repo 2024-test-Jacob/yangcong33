@@ -1,6 +1,6 @@
 package com.yangcong.blog.config;
 
-import com.yangcong.blog.security.AuthInterceptor;
+import com.yangcong.blog.module.auth.security.AuthInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
