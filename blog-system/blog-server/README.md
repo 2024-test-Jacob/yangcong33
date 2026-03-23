@@ -39,7 +39,8 @@ src/main/java/com/yangcong/blog/
         ├── model/             # 当前模块的数据模型
         ├── repository/        # 面向业务的数据访问层
         ├── security/          # 登录态、拦截器等安全相关能力
-        └── service/           # 业务逻辑层
+        └── service/           # 业务接口层
+            └── impl/          # 业务实现层
 ```
 
 ### 你关心的几个概念
@@ -47,7 +48,9 @@ src/main/java/com/yangcong/blog/
 - `controller`
   - 负责接收 HTTP 请求，例如 `/api/auth/login`
 - `service`
-  - 负责写业务逻辑，例如校验用户名密码、生成 token
+  - 负责定义业务接口，让上层依赖抽象
+- `service/impl`
+  - 负责具体业务实现，例如校验用户名密码、生成 token
 - `repository`
   - 负责面向业务提供数据访问能力
 - `mapper`
@@ -107,7 +110,7 @@ src/main/java/com/yangcong/blog/
 #### 这样做对我们当前项目的好处
 
 1. 后续如果你换 SQL 写法，优先改 `mapper`
-2. 上层 `service` 不一定要直接感知 ORM 细节
+2. 上层 `service/impl` 不一定要直接感知 ORM 细节
 3. 未来如果模块继续增大，`repository` 会比直接到处注入 `mapper` 更利于收口
 
 ## 启动前准备
@@ -129,3 +132,17 @@ src/main/java/com/yangcong/blog/
 cd blog-system
 mvn -pl blog-server spring-boot:run
 ```
+
+## 关于 `service` 要不要拆接口
+
+当前已经调整为：**`service` 放接口，`service/impl` 放实现类**。
+
+这种写法并不是“过时才这么做”，而是企业 Java 项目里依然非常常见的一种分层方式，优势通常在于：
+
+1. controller 面向接口编程，更利于解耦
+2. 后续如果要补充不同实现、做测试替身或扩展能力，更容易演进
+3. 目录职责更清晰：接口定义和实现代码分开
+
+当然，如果是非常小的项目，也有人会直接省略接口层、只保留一个 service 类，以减少样板代码。
+
+所以更准确的理解不是“新旧之分”，而是：**看项目规模、团队习惯和后续演进需求来取舍**。当前这个项目为了更贴近常见企业项目写法，采用接口 + 实现类的结构。
