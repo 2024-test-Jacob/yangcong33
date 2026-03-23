@@ -21,7 +21,11 @@ Spring Boot 后端服务，当前已完成 MVP 第一阶段的登录模块骨架
 
 1. 先执行仓库根目录下的 `sql/init.sql`
 2. 按需执行 `sql/seed.sql`
-3. 修改 `src/main/resources/application.yml` 中的数据库账号密码
+3. 优先通过环境变量覆盖数据库配置：
+   - `DB_URL`
+   - `DB_USERNAME`
+   - `DB_PASSWORD`
+4. 如果你在 IDEA 中直接启动，也可以在 Run Configuration 中配置上述环境变量
 
 > 当前 `sql/seed.sql` 默认写入的是 `{noop}admin123`，方便本地先跑通登录流程；
 > 后续接入正式环境时再切换为 `{bcrypt}` 哈希。
