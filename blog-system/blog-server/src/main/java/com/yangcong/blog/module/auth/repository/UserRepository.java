@@ -1,60 +1,36 @@
 package com.yangcong.blog.module.auth.repository;
 
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.yangcong.blog.module.auth.mapper.UserMapper;
 import com.yangcong.blog.module.auth.model.User;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 /**
  * 当前阶段的数据访问层。
  *
- * <p>这里使用的是 {@link JdbcTemplate} + 手写 SQL，因此先采用 repository 命名。
- * 如果后续切换到 MyBatis / MyBatis-Plus，再考虑拆分为 mapper 层。</p>
+ * <p>当前项目已经引入 MyBatis-Plus，但仍保留 repository 作为“面向业务的数据访问入口”。
+ * repository 负责对上提供稳定语义，mapper 负责更底层的 ORM/SQL 映射能力。</p>
  */
 @Repository
 public class UserRepository {
 
-    private static final RowMapper<User> USER_ROW_MAPPER = UserRepository::mapUser;
+    private final UserMapper userMapper;
 
-    private final JdbcTemplate jdbcTemplate;
-
-    public UserRepository(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public UserRepository(UserMapper userMapper) {
+        this.userMapper = userMapper;
     }
 
     public Optional<User> findByUsername(String username) {
-        List<User> users = jdbcTemplate.query("""
-                SELECT id, username, password_hash, nickname, status, created_at, updated_at
-                FROM users
-                WHERE username = ?
-                LIMIT 1
-                """, USER_ROW_MAPPER, username);
-        return users.stream().findFirst();
+        User user = userMapper.selectOne(
+                Wrappers.<User>lambdaQuery()
+                        .eq(User::getUsername, username)
+                        .last("LIMIT 1")
+        );
+        return Optional.ofNullable(user);
     }
 
     public Optional<User> findById(Long id) {
-        List<User> users = jdbcTemplate.query("""
-                SELECT id, username, password_hash, nickname, status, created_at, updated_at
-                FROM users
-                WHERE id = ?
-                LIMIT 1
-                """, USER_ROW_MAPPER, id);
-        return users.stream().findFirst();
-    }
-
-    private static User mapUser(ResultSet resultSet, int rowNum) throws SQLException {
-        return new User(
-                resultSet.getLong("id"),
-                resultSet.getString("username"),
-                resultSet.getString("password_hash"),
-                resultSet.getString("nickname"),
-                resultSet.getInt("status"),
-                resultSet.getTimestamp("created_at").toLocalDateTime(),
-                resultSet.getTimestamp("updated_at").toLocalDateTime()
-        );
+        return Optional.ofNullable(userMapper.selectById(id));
     }
 }

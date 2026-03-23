@@ -48,6 +48,7 @@ blog-system/
 
 - `spring-boot.version=3.5.12`
 - `spring-security.version=6.5.7`
+- `mybatis-plus.version=3.5.14`
 - `mysql-connector.version=8.0.33`
 - `lombok.version=1.18.38`
 

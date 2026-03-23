@@ -27,15 +27,15 @@ public class AuthService {
         User user = userRepository.findByUsername(request.username())
                 .orElseThrow(() -> new BusinessException(401, "用户名或密码错误"));
 
-        if (user.status() == null || user.status() != 1) {
+        if (user.getStatus() == null || user.getStatus() != 1) {
             throw new BusinessException(403, "账号已被禁用");
         }
 
-        if (!passwordEncoder.matches(request.password(), user.passwordHash())) {
+        if (!passwordEncoder.matches(request.password(), user.getPasswordHash())) {
             throw new BusinessException(401, "用户名或密码错误");
         }
 
-        String token = tokenService.issueToken(user.id());
+        String token = tokenService.issueToken(user.getId());
         return new LoginResponse(token, toCurrentUser(user));
     }
 
@@ -46,6 +46,6 @@ public class AuthService {
     }
 
     private CurrentUserResponse toCurrentUser(User user) {
-        return new CurrentUserResponse(user.id(), user.username(), user.nickname());
+        return new CurrentUserResponse(user.getId(), user.getUsername(), user.getNickname());
     }
 }

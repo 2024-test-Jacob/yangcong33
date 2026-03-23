@@ -35,8 +35,9 @@ src/main/java/com/yangcong/blog/
     └── auth/
         ├── controller/        # 接口入口层
         ├── dto/               # 请求/响应对象
+        ├── mapper/            # MyBatis / MyBatis-Plus 映射层
         ├── model/             # 当前模块的数据模型
-        ├── repository/        # 数据访问层
+        ├── repository/        # 面向业务的数据访问层
         ├── security/          # 登录态、拦截器等安全相关能力
         └── service/           # 业务逻辑层
 ```
@@ -48,7 +49,9 @@ src/main/java/com/yangcong/blog/
 - `service`
   - 负责写业务逻辑，例如校验用户名密码、生成 token
 - `repository`
-  - 负责和数据库打交道，例如查询 `users` 表
+  - 负责面向业务提供数据访问能力
+- `mapper`
+  - 负责底层 ORM / SQL 映射能力
 - `dto`
   - 负责接口入参和出参对象
 - `model`
@@ -58,19 +61,22 @@ src/main/java/com/yangcong/blog/
 
 ### `repository` 和 `mapper` 到底有什么区别？
 
-你现在看到的是 `repository`，不是 `mapper`，这是**当前阶段刻意这样设计的**。
+现在我们已经调整成：**保留 `repository`，同时引入 `mapper`**。
 
-#### 当前为什么先用 `repository`
+#### 当前为什么这样分层
 
-因为我们现在的数据访问方式还是：
+因为我们现在的数据访问方式已经切换为：
 
 - Spring Boot
-- `JdbcTemplate`
-- 手写 SQL
+- MyBatis-Plus
+- `mapper + repository`
 
-在这种写法下，`repository` 这个命名更自然，因为它表示：
+这种写法下：
 
-> “这个类负责和数据库交互，并为上层业务提供数据访问能力。”
+- `mapper` 负责更底层的 ORM / SQL 映射
+- `repository` 负责面向业务提供更稳定的数据访问语义
+
+这也是很多企业项目中的常见做法。
 
 #### `mapper` 一般在什么场景更常见
 
@@ -87,36 +93,22 @@ src/main/java/com/yangcong/blog/
 
 那时 `mapper` 就会更贴切。
 
-#### 现在要不要立刻补 `mapper` 层？
+#### 现在的结论
 
-**我不建议现在为了“结构完整”而先空建一层 `mapper`。**
+现在已经不是“空建 mapper 层”，而是**真正使用 MyBatis-Plus 引入了 mapper 层**。
 
-原因是：
+当前结构建议理解为：
 
-1. 当前还没有引入 MyBatis / MyBatis-Plus
-2. 现在已经有 `JdbcTemplate` 方案在工作
-3. 过早增加一层空抽象，只会让目录更复杂、更难理解
+1. `mapper`
+   - 更贴近 ORM / SQL 映射实现
+2. `repository`
+   - 更贴近业务层可理解的数据访问接口
 
-#### 后续什么时候再补 `mapper`
+#### 这样做对我们当前项目的好处
 
-如果后面你决定把数据访问统一迁移到 MyBatis / MyBatis-Plus，那时就可以：
-
-1. 新增 `mapper` 包
-2. 新增 `UserMapper`
-3. 把当前 `repository` 中的 SQL 访问逻辑迁移过去
-4. 再决定是：
-   - 直接用 `mapper` 作为数据访问层
-   - 还是保留 `repository`，由 `repository` 再去组合调用 `mapper`
-
-#### 当前阶段建议
-
-当前 MVP 阶段先保持：
-
-- `controller`
-- `service`
-- `repository`
-
-就够了，先把登录闭环跑通，再决定是否引入 `mapper` 技术栈。
+1. 后续如果你换 SQL 写法，优先改 `mapper`
+2. 上层 `service` 不一定要直接感知 ORM 细节
+3. 未来如果模块继续增大，`repository` 会比直接到处注入 `mapper` 更利于收口
 
 ## 启动前准备
 

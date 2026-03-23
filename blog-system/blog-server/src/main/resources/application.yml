@@ -10,6 +10,10 @@ spring:
     password: ${DB_PASSWORD:123456}
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+
 logging:
   level:
     com.yangcong.blog: INFO
