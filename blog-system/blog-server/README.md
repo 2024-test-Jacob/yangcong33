@@ -12,6 +12,8 @@ Spring Boot 后端服务，当前已完成 MVP 第一阶段的登录模块骨架
 - 子模块 ArtifactId / 目录名：`blog-server`
 - Spring Boot 版本：`3.5.12`
 
+> 版本选择原则：优先确定 JDK，再确定 Spring Boot 主线，最后在该主线内选较新的稳定补丁版本。
+
 ## 已实现
 
 - `POST /api/auth/login`
