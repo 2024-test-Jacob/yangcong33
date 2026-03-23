@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: blog-server
+    name: blog-system
   datasource:
     url: jdbc:mysql://localhost:3306/blog_system?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
     username: root

@@ -1,6 +1,13 @@
-# blog-server
+# blog-system
 
 Spring Boot 后端服务，当前已完成 MVP 第一阶段的登录模块骨架。
+
+## 推荐本地环境
+
+- JDK：17
+- Maven 编译版本：17
+- GroupId：`com.yangcong`
+- ArtifactId / 项目目录名：`blog-system`
 
 ## 已实现
 
