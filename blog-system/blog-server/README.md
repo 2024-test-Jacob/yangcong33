@@ -56,6 +56,68 @@ src/main/java/com/yangcong/blog/
 - `security`
   - 负责登录态、鉴权拦截、当前用户上下文
 
+### `repository` 和 `mapper` 到底有什么区别？
+
+你现在看到的是 `repository`，不是 `mapper`，这是**当前阶段刻意这样设计的**。
+
+#### 当前为什么先用 `repository`
+
+因为我们现在的数据访问方式还是：
+
+- Spring Boot
+- `JdbcTemplate`
+- 手写 SQL
+
+在这种写法下，`repository` 这个命名更自然，因为它表示：
+
+> “这个类负责和数据库交互，并为上层业务提供数据访问能力。”
+
+#### `mapper` 一般在什么场景更常见
+
+`mapper` 这个命名更常见于：
+
+- MyBatis
+- MyBatis-Plus
+
+例如后面如果你引入：
+
+- `UserMapper.java`
+- `@Mapper`
+- XML SQL 或注解 SQL
+
+那时 `mapper` 就会更贴切。
+
+#### 现在要不要立刻补 `mapper` 层？
+
+**我不建议现在为了“结构完整”而先空建一层 `mapper`。**
+
+原因是：
+
+1. 当前还没有引入 MyBatis / MyBatis-Plus
+2. 现在已经有 `JdbcTemplate` 方案在工作
+3. 过早增加一层空抽象，只会让目录更复杂、更难理解
+
+#### 后续什么时候再补 `mapper`
+
+如果后面你决定把数据访问统一迁移到 MyBatis / MyBatis-Plus，那时就可以：
+
+1. 新增 `mapper` 包
+2. 新增 `UserMapper`
+3. 把当前 `repository` 中的 SQL 访问逻辑迁移过去
+4. 再决定是：
+   - 直接用 `mapper` 作为数据访问层
+   - 还是保留 `repository`，由 `repository` 再去组合调用 `mapper`
+
+#### 当前阶段建议
+
+当前 MVP 阶段先保持：
+
+- `controller`
+- `service`
+- `repository`
+
+就够了，先把登录闭环跑通，再决定是否引入 `mapper` 技术栈。
+
 ## 启动前准备
 
 1. 先执行仓库根目录下的 `sql/init.sql`

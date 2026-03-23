@@ -9,6 +9,12 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+/**
+ * 当前阶段的数据访问层。
+ *
+ * <p>这里使用的是 {@link JdbcTemplate} + 手写 SQL，因此先采用 repository 命名。
+ * 如果后续切换到 MyBatis / MyBatis-Plus，再考虑拆分为 mapper 层。</p>
+ */
 @Repository
 public class UserRepository {
 
