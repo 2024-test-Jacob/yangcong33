@@ -3,10 +3,12 @@
 USE blog_system;
 
 -- 示例管理员
--- 密码哈希请在正式接入 Spring Security / BCrypt 后替换
+-- 当前使用 {noop}admin123 作为开发期默认密码，便于先跑通登录流程
+-- 后续接入正式环境时建议替换为 {bcrypt} 开头的真实哈希
 INSERT INTO users (username, password_hash, nickname, status)
-VALUES ('admin', '$2a$10$replace_with_real_bcrypt_hash', 'Yangcong', 1)
+VALUES ('admin', '{noop}admin123', 'Yangcong', 1)
 ON DUPLICATE KEY UPDATE
+    password_hash = VALUES(password_hash),
     nickname = VALUES(nickname),
     status = VALUES(status);
 
