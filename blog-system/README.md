@@ -20,6 +20,12 @@ blog-system/
   - 统一 Java / Spring Boot 版本
 - 当前业务代码放在子模块 `blog-server` 中
 
+## 当前建议版本
+
+- Spring Boot：`3.5.12`
+- JDK：`17`
+- Maven：`3.6.3+`
+
 ## IDEA 提示
 
 如果你的父工程目录下还额外出现了一个顶层 `src/`，而你又不打算让父工程自己成为一个可运行模块，

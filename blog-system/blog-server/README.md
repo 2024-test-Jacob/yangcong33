@@ -5,11 +5,12 @@ Spring Boot 后端服务，当前已完成 MVP 第一阶段的登录模块骨架
 ## 推荐本地环境
 
 - JDK：17
-- Maven 编译版本：17
+- Java 编译目标：17
+- Maven：3.6.3+
 - GroupId：`com.yangcong`
 - 父工程目录名：`blog-system`
 - 子模块 ArtifactId / 目录名：`blog-server`
-- Spring Boot 版本：`3.5.8`
+- Spring Boot 版本：`3.5.12`
 
 ## 已实现
 
