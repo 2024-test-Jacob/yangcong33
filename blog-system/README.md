@@ -33,12 +33,22 @@ blog-system/
    - `java.version=17`
 4. **统一依赖管理**
    - 在 `dependencyManagement` 中集中声明当前项目常用依赖坐标
+   - 当前也显式写出了版本属性，便于学习和人工检查
 
 这样做的意义是：
 
 - 子模块不需要到处重复写版本
 - 后续新增模块时更容易保持一致
 - 以后如果升级 Spring Boot，只需要优先调整父工程
+
+### 当前显式版本属性
+
+- `spring-boot.version=3.5.12`
+- `spring-security.version=6.5.7`
+- `mysql-connector.version=8.0.33`
+- `lombok.version=1.18.38`
+
+> 提醒：这种“显式版本号”写法更直观，但后续升级时要注意和 Spring Boot 3.5.12 所兼容的依赖版本保持同步。
 
 ## 两层 parent 的理解方式
 
