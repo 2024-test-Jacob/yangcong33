@@ -21,6 +21,7 @@
     <modules>
         <module>blog-server</module>
         <module>blog-admin</module>
+        <module>blog-web</module>
     </modules>
 
     <properties>
